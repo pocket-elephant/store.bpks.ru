@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -15,6 +17,7 @@ class Product extends Model
     use HasFactory;
     use HasUuids;
     use HasSlug;
+    use Searchable;
 
     protected $fillable = [
         'uuid',
@@ -32,6 +35,14 @@ class Product extends Model
     public function uniqueIds(): array
     {
         return ['uuid'];
+    }
+
+    #[SearchUsingFullText(['name'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->name,
+        ];
     }
 
     public function getSlugOptions(): SlugOptions

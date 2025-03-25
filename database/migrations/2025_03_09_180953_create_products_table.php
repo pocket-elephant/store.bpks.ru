@@ -24,7 +24,8 @@ return new class extends Migration
 
             $table->uuid();
 
-            $table->string('name');
+            $table->string('name')
+                ->fulltext();
 
             $table->foreignIdFor(Okei::class);
 

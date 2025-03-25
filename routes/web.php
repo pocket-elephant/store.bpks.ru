@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ShowCategory;
 use App\Http\Controllers\ShowHomepage;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,7 @@ Route::get('/', ShowHomepage::class)
 
 Route::get('category/{category:slug}', ShowCategory::class)
     ->name('categories.show');
+
 
 Route::prefix('cart')->name('cart.')->group(function () {
 
@@ -23,3 +25,6 @@ Route::prefix('cart')->name('cart.')->group(function () {
         ->name('deleteItem');
 
 });
+
+Route::get('search', [SearchController::class, 'search'])
+    ->name('search');

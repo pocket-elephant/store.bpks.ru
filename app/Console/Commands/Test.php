@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,11 +28,12 @@ class Test extends Command
      */
     public function handle()
     {
-        $order = Order::query()
-            ->with('items')
-            ->latest('id')
-            ->first();
+        $res = Product::search('00000074732')
+            ->take(3)
+            ->get()
+            ->pluck('name')
+            ->toArray();
 
-        dd($order->toArray());
+        dd($res);
     }
 }

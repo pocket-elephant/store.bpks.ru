@@ -1,5 +1,7 @@
 <script setup>
-import {Link} from "@inertiajs/vue3";
+import {Link, usePage} from "@inertiajs/vue3";
+
+const page = usePage();
 
 const links = [
     {
@@ -61,7 +63,7 @@ const links = [
 
                         <div class="w-full">
                             <form method="get" action="/search" class="-ml-4 md:ml-auto">
-                                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+                                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Поиск</label>
                                 <div class="relative">
                                     <div class="flex absolute inset-y-0 left-0 items-center pl-4 pointer-events-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -71,9 +73,13 @@ const links = [
                                                   d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
                                         </svg>
                                     </div>
-                                    <input type="text" autocomplete="off" name="query" id="default-search"
-                                           class="block p-3 pl-12 w-full text-base text-gray-400 bg-gray-100 rounded-md border border-gray-200 focus:ring-gray-300 focus:border-gray-400"
-                                           placeholder="поиск по каталогу" required=""><!----></div>
+                                    <input
+                                        :value="page.props?.search?.query"
+                                        type="text" autocomplete="off" name="query" id="default-search"
+                                        class="block p-3 pl-12 w-full text-base text-gray-400 bg-gray-100 rounded-md border border-gray-200 focus:ring-gray-300 focus:border-gray-400"
+                                        placeholder="поиск по каталогу" required=""
+                                    >
+                                </div>
                             </form>
                         </div>
 
