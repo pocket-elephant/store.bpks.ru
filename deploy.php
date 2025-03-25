@@ -36,8 +36,8 @@ task('vite:build', function () {
 // Hooks
 
 after('deploy:failed', 'deploy:unlock');
-after('deploy:vendors', 'build:clean');
-after('build:clean', 'npm:install');
-after('npm:install', 'vite:build');
+//after('deploy:vendors', 'build:clean');
+//after('build:clean', 'npm:install');
+//after('npm:install', 'vite:build');
 
 //after('build:clean', 'npm:install');
