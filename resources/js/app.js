@@ -1,5 +1,7 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
+import DaDataNext from 'vue-dadata-3';
+
 
 createInertiaApp({
     resolve: name => {
@@ -9,6 +11,9 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(DaDataNext, {
+                token: 'b9d28ab5a7223f86589fce08352230f5f489dd10',
+            })
             .mount(el)
     },
 })

@@ -83,7 +83,6 @@ const links = [
                             </form>
                         </div>
 
-
                         <Link
                             class="text-xs text-gray-600 hover:text-red-700 relative flex-col justify-center content-between items-center hidden md:flex"
                             href="/cart"><!---->
