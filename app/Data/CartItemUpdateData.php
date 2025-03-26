@@ -10,7 +10,6 @@ class CartItemUpdateData extends Data
     public function __construct(
         public string $uuid,
         public int $quantity = 1,
-
     ) {}
 
     public function product(): Product

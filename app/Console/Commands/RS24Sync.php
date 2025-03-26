@@ -85,6 +85,11 @@ class RS24Sync extends Command
         $this->comment($docDetail->RetailPrice);
         $this->comment($docDetail->SumQTY);
 
+        $stock = (int) $docDetail->SumQTY;
+        if($stock < 1) {
+            return;
+        }
+
         $categoryName = (string)$docDetail->ProductGroup;
 
         if ($categoryName) {
@@ -101,6 +106,7 @@ class RS24Sync extends Command
                 'category_id' => $category->id,
                 'price' => (float) $docDetail->RetailPrice,
                 'okei_id' => $okei->id,
+                'supplier_data' => (array) $docDetail,
             ]);
         }
 

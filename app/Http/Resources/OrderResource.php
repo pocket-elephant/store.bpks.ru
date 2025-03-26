@@ -16,9 +16,14 @@ class OrderResource extends JsonResource
     {
         return [
             'uuid' => $this->resource->uuid,
+            'client' => $this->resource->client,
             'items' => OrderItemResource::collection(
                 $this->resource->items
             ),
+            'delivery' => [
+                'type' => 'selfPickup',
+                'data' => null,
+            ],
         ];
     }
 }

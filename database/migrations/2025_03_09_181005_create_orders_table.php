@@ -23,7 +23,7 @@ return new class extends Migration
                 ->nullable();
 
             $table->string('session_id')
-                ->unique();
+                ->index();
 
             $table->jsonb('client')
                 ->nullable();

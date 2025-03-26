@@ -24,12 +24,14 @@ class Product extends Model
         'name',
         'slug',
         'price',
+        'supplier_data',
         'category_id',
         'okei_id',
     ];
 
     protected $casts = [
         'price' => 'float',
+        'supplier_data' => 'array',
     ];
 
     public function uniqueIds(): array

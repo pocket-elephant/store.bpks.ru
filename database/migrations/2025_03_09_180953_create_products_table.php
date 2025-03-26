@@ -27,6 +27,9 @@ return new class extends Migration
             $table->string('name')
                 ->fulltext();
 
+            $table->jsonb('supplier_data')
+                ->nullable();
+
             $table->foreignIdFor(Okei::class);
 
             $table->float('price')

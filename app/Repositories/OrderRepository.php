@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Data\CartItemUpdateData;
+use App\Enums\OrderState;
 use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 
@@ -11,6 +12,7 @@ class OrderRepository
     public function currentOrder(): ?Order
     {
         return Order::query()
+            ->where('state', OrderState::Created)
             ->with('items.product')
             ->latest('id')
             ->where([
@@ -22,6 +24,7 @@ class OrderRepository
     public function getOrCreateOrder(): Order
     {
         return Order::query()
+            ->where('state', OrderState::Created)
             ->with('items')
             ->latest('id')
             ->firstOrCreate([
@@ -36,7 +39,9 @@ class OrderRepository
         return $order->items()->updateOrCreate([
             'product_id' => $updateData->product()->id,
         ], [
-            'quantity' => $updateData->quantity,
+            'quantity' => $updateData->quantity > 0
+                ? $updateData->quantity
+                : 1,
         ]);
     }
 }

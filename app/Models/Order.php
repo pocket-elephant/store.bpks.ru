@@ -22,10 +22,14 @@ class Order extends Model
         'uuid',
         'session_id',
         'state',
+        'client',
+        'delivery',
     ];
 
     protected $casts = [
         'state' => OrderState::class,
+        'client' => 'array',
+        'delivery' => 'array',
     ];
 
     public function items(): HasMany
