@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Okei;
+use App\Models\Supplier;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +23,11 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            $table->foreignIdFor(Supplier::class)
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
             $table->uuid();
 
             $table->string('name')
@@ -38,7 +44,12 @@ return new class extends Migration
             $table->string('slug')
                 ->unique();
 
+            $table->boolean('processed')
+                ->default(true);
+
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

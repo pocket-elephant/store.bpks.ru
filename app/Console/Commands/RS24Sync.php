@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Category;
 use App\Models\Okei;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
@@ -39,6 +40,13 @@ class RS24Sync extends Command
      * @var Filesystem
      */
     protected Filesystem $storage;
+
+    /**
+     * Supplier
+     *
+     * @var Supplier
+     */
+    protected Supplier $supplier;
 
     /**
      * Boot
@@ -100,13 +108,15 @@ class RS24Sync extends Command
             $okei = Okei::where('symbolInternationalView', 'like', "%{$docDetail->UOM}%")
                 ->first();
 
-            $product = Product::updateOrCreate([
+            $product = Product::withTrashed()->updateOrCreate([
                 'name' => (string)$docDetail->ProductName,
+                'supplier_id' => $this->supplier->id,
             ], [
                 'category_id' => $category->id,
                 'price' => (float) $docDetail->RetailPrice,
                 'okei_id' => $okei->id,
                 'supplier_data' => (array) $docDetail,
+                'processed' => true,
             ]);
         }
 
@@ -130,11 +140,30 @@ class RS24Sync extends Command
      */
     public function handle(): int
     {
+        $this->supplier = Supplier::firstWhere('key', 'rs24');
+
+        if (!$this->supplier) {
+            $this->error('Can`t find supplier');
+            return static::FAILURE;
+        }
+
+        $this->info("Mark supplier products as unprocessed");
+
+        $this->supplier->products()->update([
+            'processed' => false,
+        ]);
+
         $this->boot();
 
         $this->processStockFile(
             $this->lastStockFile()
         );
+
+        $this->info("Delete supplier unprocessed products");
+
+        $this->supplier->products()->where([
+            'processed' => false,
+        ])->delete();
 
         return static::SUCCESS;
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Data\CartItemDeleteData;
 use App\Data\CartItemUpdateData;
 use App\Data\CheckoutCartData;
+use App\Enums\ClientType;
 use App\Enums\OrderState;
 use App\Models\Product;
 use App\Repositories\OrderRepository;
@@ -49,12 +50,13 @@ class CartController extends Controller
         ]);
     }
 
-    public function checkout(CheckoutCartData $cartData)
+    public function checkout(CheckoutCartData $cartData): RedirectResponse
     {
         $order = $this->repository->currentOrder();
 
         $order->update([
             'client' => $cartData->client,
+            'delivery' => $cartData->delivery,
             'state' => OrderState::Completed,
         ]);
 

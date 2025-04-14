@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
@@ -18,6 +19,7 @@ class Product extends Model
     use HasUuids;
     use HasSlug;
     use Searchable;
+    use SoftDeletes;
 
     protected $fillable = [
         'uuid',
@@ -25,13 +27,16 @@ class Product extends Model
         'slug',
         'price',
         'supplier_data',
+        'supplier_id',
         'category_id',
         'okei_id',
+        'processed',
     ];
 
     protected $casts = [
         'price' => 'float',
         'supplier_data' => 'array',
+        'processed' => 'boolean',
     ];
 
     public function uniqueIds(): array
@@ -63,5 +68,10 @@ class Product extends Model
     public function okei(): BelongsTo
     {
         return $this->belongsTo(Okei::class);
+    }
+
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
     }
 }

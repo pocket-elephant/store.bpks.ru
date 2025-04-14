@@ -20,10 +20,8 @@ class OrderResource extends JsonResource
             'items' => OrderItemResource::collection(
                 $this->resource->items
             ),
-            'delivery' => [
-                'type' => 'selfPickup',
-                'data' => null,
-            ],
+            'delivery' => $this->resource->delivery,
+            'total' => $this->resource->total,
         ];
     }
 }

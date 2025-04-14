@@ -17,12 +17,14 @@
         "laravel/scout": "^10.14",
         "laravel/tinker": "^2.10.1",
         "league/flysystem-ftp": "^3.0",
+        "propaganistas/laravel-phone": "^5.3",
         "spatie/laravel-data": "^4.14",
         "spatie/laravel-sluggable": "^3.7"
     },
     "require-dev": {
         "deployer/deployer": "^7.5",
         "fakerphp/faker": "^1.23",
+        "laravel-lang/lang": "^15.19",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.41",

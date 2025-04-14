@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\OrderState;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,5 +41,10 @@ class Order extends Model
     public function uniqueIds(): array
     {
         return ['uuid'];
+    }
+
+    public function total(): Attribute
+    {
+        return Attribute::get(fn() => $this->items->sum('total'));
     }
 }

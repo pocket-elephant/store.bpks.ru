@@ -26,7 +26,9 @@ class Test extends Command
      */
     public function handle()
     {
-        $order = Order::latest()->first();
-        dd($order->toArray());
+        dd(
+            phone('8(812)0117636', 'RU')
+            ->formatE164()
+        );
     }
 }

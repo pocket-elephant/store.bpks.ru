@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\ClientType;
+use App\Enums\DeliveryType;
 use App\Http\Resources\OrderResource;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
@@ -46,6 +48,16 @@ class HandleInertiaRequests extends Middleware
                 'order' => $currentOrder
                     ? OrderResource::make($currentOrder)
                     : null,
+            ],
+            'defines' => [
+                'clientTypes' => [
+                    'options' => ClientType::labels(),
+                    'default' => ClientType::Individual,
+                ],
+                'deliveryTypes' => [
+                    'options' => DeliveryType::labels(),
+                    'default' => DeliveryType::SelfPickup,
+                ],
             ],
         ]);
     }
