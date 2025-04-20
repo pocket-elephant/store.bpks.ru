@@ -11,7 +11,7 @@ Route::prefix('v1')->name('api.')->group(function () {
         ->middleware('auth:sanctum')
         ->group(function () {
             Route::get('/', [OrdersController::class, 'listOfNew'])->name('listOfNew');
-            Route::get('orders/{order:uuid}', [OrdersController::class, 'show'])->name('show');
-            Route::post('orders/{order:uuid}/sync', [OrdersController::class, 'sync'])->name('sync');
+            Route::get('{order:uuid}', [OrdersController::class, 'show'])->name('show');
+            Route::post('{order:uuid}/sync', [OrdersController::class, 'sync'])->name('sync');
         });
 });
