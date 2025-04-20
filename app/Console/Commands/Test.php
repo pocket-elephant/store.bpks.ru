@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Application;
 use App\Models\Order;
 use Illuminate\Console\Command;
 
@@ -26,9 +27,26 @@ class Test extends Command
      */
     public function handle()
     {
-        dd(
-            phone('8(812)0117636', 'RU')
-            ->formatE164()
-        );
+//        $application = Application::create([
+//            'name' => '1С основная',
+//        ]);
+
+//        /** @var Application $application */
+//        $application = Application::find(1);
+//        dd($application->createToken('api')->plainTextToken);
+
+        /** @var Order $order */
+        $order = Order::latest('id')
+            ->first();
+
+        dd(route('api.orders.show', $order));
+
+        $order->applications()->syncWithoutDetaching([
+            $application->id, [
+                'external_id' => '123',
+            ],
+        ]);
+
+        dd($application->orders()->toSql());
     }
 }

@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(OkeiSeeder::class);
         $this->call(SupplierSeeder::class);
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+//
+//        User::factory()->create([
+//            'name' => 'Test User',
+//            'email' => 'test@example.com',
+//        ]);
     }
 }

@@ -1,19 +1,17 @@
 <?php
 
+use App\Http\Controllers\OrdersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
-    Route::get('orders', function (Request $request) {
-        return \App\Http\Resources\OrderResource::collection(
-            \App\Models\Order::query()
-                ->where('state', \App\Enums\OrderState::Completed)
-                ->latest()
-                ->paginate(50)
-        );
-    });
+Route::prefix('v1')->name('api.')->group(function () {
 
-    Route::get('orders/{order:uuid}', function (\App\Models\Order $order) {
-        return \App\Http\Resources\OrderResource::make($order);
-    });
+    Route::prefix('orders')
+        ->name('orders.')
+        ->middleware('auth:sanctum')
+        ->group(function () {
+            Route::get('/', [OrdersController::class, 'listOfNew'])->name('listOfNew');
+            Route::get('orders/{order:uuid}', [OrdersController::class, 'show'])->name('show');
+            Route::post('orders/{order:uuid}/sync', [OrdersController::class, 'sync'])->name('sync');
+        });
 });

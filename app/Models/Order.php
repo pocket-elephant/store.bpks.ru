@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
@@ -46,5 +47,14 @@ class Order extends Model
     public function total(): Attribute
     {
         return Attribute::get(fn() => $this->items->sum('total'));
+    }
+
+    public function applications(): BelongsToMany
+    {
+        return $this->belongsToMany(Application::class)
+            ->withTimestamps()
+            ->withPivot([
+                'external_id',
+            ]);
     }
 }
