@@ -27,13 +27,16 @@ class Test extends Command
      */
     public function handle()
     {
-//        $application = Application::create([
-//            'name' => '1С основная',
-//        ]);
+        $order = Order::where('uuid', '019639cd-8579-70bb-ab4b-cb8646d55322')->first();
+        dd(route('api.orders.show', $order));
+        dd();
+        $application = Application::create([
+            'name' => '1С УПП',
+        ]);
 
-//        /** @var Application $application */
-//        $application = Application::find(1);
-//        dd($application->createToken('api')->plainTextToken);
+        /** @var Application $application */
+        $application = Application::find(1);
+        dd($application->createToken('api', ['orders:listOfNew', 'orders:show', 'orders:sync', 'orders:list'])->plainTextToken);
 
         /** @var Order $order */
         $order = Order::latest('id')
