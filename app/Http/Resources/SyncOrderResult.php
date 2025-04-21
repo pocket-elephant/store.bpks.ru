@@ -14,6 +14,10 @@ class SyncOrderResult extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'result' => $this->resource['result'],
+            'data' => $this->resource['data'],
+            'order' => OrderResource::make($this->resource['order']),
+        ];
     }
 }

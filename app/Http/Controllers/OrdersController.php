@@ -38,12 +38,10 @@ class OrdersController extends Controller
             ],
         ]);
 
-        return  SyncOrderResult::make([
+        return SyncOrderResult::make([
             'result' => $result,
             'data' => $data,
-            'order' => [
-                OrderResource::make($order),
-            ],
+            'order' => $order,
         ]);
 
     }
