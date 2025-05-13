@@ -114,6 +114,7 @@ class RS24Sync extends Command
             ], [
                 'category_id' => $category->id,
                 'price' => (float) $docDetail->RetailPrice,
+                'stock' => $stock,
                 'okei_id' => $okei->id,
                 'supplier_data' => (array) $docDetail,
                 'processed' => true,

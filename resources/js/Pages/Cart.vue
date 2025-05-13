@@ -80,12 +80,21 @@ const deliveryToAddressData = ref({
     value: null
 });
 
+const pickupPointIndex = ref(0);
+
+const pickupDeliveryData = computed(() => {
+    return {
+        value: page.props.defines.warehouses[pickupPointIndex.value].address,
+        data: page.props.defines.warehouses[pickupPointIndex.value]
+    }
+})
+
 const delivery = computed(() => {
     return {
         type: deliveryType.value,
         data: deliveryType.value === 'toAddress'
             ? deliveryToAddressData.value
-            : null,
+            : pickupDeliveryData.value,
     }
 })
 
@@ -202,6 +211,12 @@ function displayPrice(price) {
                             <template #label>Тип доставки</template>
                             <select v-model="deliveryType" class="py-2 px-3 text-gray-500 rounded-md border bg-white mt-1 block w-full border-gray-100 shadow-sm focus:border-red-500 focus:ring-red-500">
                                 <option v-for="(type, key) in page.props.defines.deliveryTypes.options" :value="key">{{ type }}</option>
+                            </select>
+                        </FormField>
+                        <FormField v-if="delivery.type === 'selfPickup'" error-key="delivery.pickupPoint">
+                            <template #label>Пункт выдачи</template>
+                            <select v-model="pickupPointIndex" class="py-2 px-3 text-gray-500 rounded-md border bg-white mt-1 block w-full border-gray-100 shadow-sm focus:border-red-500 focus:ring-red-500">
+                                <option v-for="(point, key) in page.props.defines.warehouses" :value="key">{{ point.address }}</option>
                             </select>
                         </FormField>
                         <FormField v-if="deliveryType === 'toAddress'" error-key="delivery.data.value">

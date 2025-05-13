@@ -5,13 +5,17 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ShowCategory;
 use App\Http\Controllers\ShowHomepage;
 use App\Http\Controllers\ShowOrder;
+use App\Http\Controllers\ShowProduct;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowHomepage::class)
     ->name('home');
 
-Route::get('category/{category:slug}', ShowCategory::class)
+Route::get('{category:slug}_c', ShowCategory::class)
     ->name('categories.show');
+
+Route::get('{product:slug}_p', ShowProduct::class)
+    ->name('products.show');
 
 
 Route::prefix('cart')->name('cart.')->group(function () {

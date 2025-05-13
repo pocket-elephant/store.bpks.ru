@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +30,7 @@ class Product extends Model
         'supplier_data',
         'supplier_id',
         'category_id',
+        'stock',
         'okei_id',
         'processed',
     ];
@@ -37,6 +39,7 @@ class Product extends Model
         'price' => 'float',
         'supplier_data' => 'array',
         'processed' => 'boolean',
+        'stock' => 'integer',
     ];
 
     public function uniqueIds(): array
@@ -73,5 +76,14 @@ class Product extends Model
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function url(): Attribute
+    {
+        return Attribute::get(function () {
+           return route('products.show', [
+               'product' => $this,
+           ]);
+        });
     }
 }

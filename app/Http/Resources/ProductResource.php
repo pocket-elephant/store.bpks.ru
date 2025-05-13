@@ -17,11 +17,14 @@ class ProductResource extends JsonResource
         return [
             'uuid' => $this->resource->uuid,
             'name' => $this->resource->name,
+            'stock' => $this->resource->stock,
             'unit' => $this->resource->okei->conventionalNationalView,
             'unitData' => OkeiResource::make(
                 $this->resource->okei
             ),
             'price' => $this->resource->price,
+            'supplierData' => $this->resource->supplier_data,
+            'url' => $this->resource->url,
         ];
     }
 }
