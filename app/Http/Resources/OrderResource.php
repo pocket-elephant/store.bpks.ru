@@ -16,6 +16,8 @@ class OrderResource extends JsonResource
     {
         return [
             'uuid' => $this->resource->uuid,
+            'state' => $this->resource->state,
+            'created_at' => $this->resource->created_at,
             'client' => $this->resource->client,
             'items' => OrderItemResource::collection(
                 $this->resource->items

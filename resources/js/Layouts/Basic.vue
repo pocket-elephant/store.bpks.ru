@@ -10,11 +10,11 @@ const links = [
     },
     {
         name: 'О компании',
-        url: '/about',
+        url: 'https://bpks.ru/about',
     },
     {
         name: 'Контакты',
-        url: '/contacts',
+        url: 'https://bpks.ru/contact',
     },
 ];
 </script>
@@ -35,7 +35,9 @@ const links = [
                         </div>
                         <div class="flex items-center">
                             <nav class="hidden items-baseline space-x-4 md:flex">
-                                <Link :href="link.url" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap text-ellipsis overflow-hidden" v-for="link in links">{{ link.name }}</Link>
+                                <Link href="/" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap text-ellipsis overflow-hidden">Главная</Link>
+                                <a href="https://bpks.ru/about" target="_blank" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap text-ellipsis overflow-hidden">О компании</a>
+                                <a href="https://bpks.ru/contact" target="_blank" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap text-ellipsis overflow-hidden">Контакты</a>
                             </nav>
                         </div>
                         <div class="w-6 h-6 text-white cursor-pointer md:hidden block absolute right-4 top-3">
