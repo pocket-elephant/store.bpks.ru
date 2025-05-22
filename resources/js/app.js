@@ -17,3 +17,17 @@ createInertiaApp({
             .mount(el)
     },
 })
+
+if (process.env.NODE_ENV === 'production') {
+
+    let referrer = document.referrer;
+
+    Inertia.on('navigate', (event) => {
+        ym(102049974, 'hit', window.location.href, {
+            referer: referrer,
+            callback: () => {
+                referrer = window.location.href;
+            },
+        });
+    })
+}

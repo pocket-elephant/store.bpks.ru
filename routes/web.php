@@ -6,6 +6,7 @@ use App\Http\Controllers\ShowCategory;
 use App\Http\Controllers\ShowHomepage;
 use App\Http\Controllers\ShowOrder;
 use App\Http\Controllers\ShowProduct;
+use App\Http\Controllers\ShowYmlFeed;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowHomepage::class)
@@ -40,3 +41,6 @@ Route::get('order/{order:uuid}/complete', ShowOrder::class)
 
 Route::get('search', [SearchController::class, 'search'])
     ->name('search');
+
+
+Route::get('yml/feed.yml', ShowYmlFeed::class);
