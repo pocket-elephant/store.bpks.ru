@@ -26,8 +26,9 @@ class OrderItemResource extends JsonResource
             ],
             'supplierCode' => $this->resource->product->supplier_data['VendorProdNum'] ?? null,
             'supplierData' => $this->resource->product->supplier_data,
-            'total' => $this->resource->total,
+            'price' => $this->resource->price,
             'quantity' => $this->resource->quantity,
+            'total' => $this->resource->total,
         ];
     }
 }

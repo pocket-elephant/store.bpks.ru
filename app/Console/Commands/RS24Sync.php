@@ -90,7 +90,9 @@ class RS24Sync extends Command
     protected function processDocDetail(SimpleXMLElement $docDetail)
     {
         $this->info("Process Product:{$docDetail->ProductName}");
-        $this->comment($docDetail->RetailPrice);
+        $price = (float)$docDetail->RetailPrice;
+        $price += $price * 0.15;
+        $this->comment($docDetail->RetailPrice . " -> " . $price);
         $this->comment($docDetail->SumQTY);
 
         $stock = (int) $docDetail->SumQTY;
@@ -113,7 +115,7 @@ class RS24Sync extends Command
                 'supplier_id' => $this->supplier->id,
             ], [
                 'category_id' => $category->id,
-                'price' => (float) $docDetail->RetailPrice,
+                'price' => $price,
                 'stock' => $stock,
                 'okei_id' => $okei->id,
                 'supplier_data' => (array) $docDetail,

@@ -39,6 +39,7 @@ class OrderRepository
         return $order->items()->updateOrCreate([
             'product_id' => $updateData->product()->id,
         ], [
+            'price' => $updateData->product()->price,
             'quantity' => $updateData->quantity > 0
                 ? $updateData->quantity
                 : 1,

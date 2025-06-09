@@ -40,7 +40,7 @@ function displayPrice(price) {
         </div>
         <div class="basis-2/6 text-right">
             <div class="text-2xl">{{ displayPrice(props.item.total) }}</div>
-            <div class="text-sm text-gray-600">{{ displayPrice(props.item.product.price) }} / {{ props.item.product.unit }}</div>
+            <div class="text-sm text-gray-600">{{ displayPrice(props.item.price) }} / {{ props.item.product.unit }}</div>
 
             <div class="float-right">
                 <input @change="ouQuantityChange" v-model="props.item.quantity" type="number" min="1" class="mt-4 text-center text-center py-2 px-2 w-18 rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"/>

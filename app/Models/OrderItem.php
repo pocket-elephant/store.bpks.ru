@@ -18,10 +18,12 @@ class OrderItem extends Model
         'quantity',
         'product_id',
         'order_id',
+        'price',
     ];
 
     protected $casts = [
         'quantity' => 'integer',
+        'price' => 'float',
     ];
 
     public function uniqueIds(): array
@@ -36,6 +38,6 @@ class OrderItem extends Model
 
     public function total(): Attribute
     {
-        return Attribute::get(fn() => round($this->product->price * $this->quantity, 2));
+        return Attribute::get(fn() => round($this->price * $this->quantity, 2));
     }
 }
