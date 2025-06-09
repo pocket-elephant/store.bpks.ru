@@ -168,7 +168,7 @@
                                                 </div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                {{ formatPrice(item.product.price) }} ₽
+                                                {{ formatPrice(item.price) }} ₽
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                 {{ item.quantity }} {{ item.product.unitData.conventionalNationalView }}
